@@ -15,9 +15,18 @@ public class InventoryController {
     @Autowired
     InventoryRepository mySqlRepository;
 
-    @GetMapping("/home")
+    @GetMapping("/")
     public String getHome(){
         return "Home";
+    }
+
+    @GetMapping("/inventory")
+    public Inventory getInventory() {
+        Inventory p = new Inventory();
+        p.setId("Test");
+        p.setProductName("Name");
+        p.setSupplier("Supplier");
+        return p;
     }
 
     @GetMapping("/get-all-inventory")
