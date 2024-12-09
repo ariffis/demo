@@ -8,5 +8,5 @@ import com.example.demo.model.Inventory;
 
 public interface InventoryRepository extends JpaRepository<Inventory, String> {
     // Custom query to search inventory by product name
-    List<Inventory> findByProductNameContaining(String productName);
+    List<Inventory> findByProductNameContainingIgnoreCaseOrSupplierContainingIgnoreCase(String productName, String supplier);
 }
