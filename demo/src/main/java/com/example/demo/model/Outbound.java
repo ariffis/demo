@@ -1,23 +1,29 @@
 package com.example.demo.model;
 
-import jakarta.persistence.*;
 import java.util.Date;
 
+import jakarta.persistence.*;
+
 @Entity
+@Table(name="outbound")
 public class Outbound{
     
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;  
-        private Long reference; 
-        private Date dateShipped;     
+        @Column(name = "outbound_id") 
+        private Long id;
+        private String reference;
+        @Column(name = "date_shipped") 
+        private Date dateShipped;
+        @Column(name = "product_sku") 
         private String productSku;
         private int quantity;
         private String destination;
         private String remarks;
-    
+        
+        public Outbound(){}
         // Constructors
-        public Outbound(Long reference, Date dateShipped, String productSku, 
+        public Outbound(String reference, Date dateShipped, String productSku, 
                         int quantity, String destination, String remarks) {
             this.reference = reference;      
             this.dateShipped = dateShipped;
@@ -31,8 +37,8 @@ public class Outbound{
         public Long getId() { return id; }
         public void setId(Long id) { this.id = id; }
 
-        public Long getReference() { return reference; }
-        public void setReference(Long reference) { this.reference = reference;}
+        public String getReference() { return reference; }
+        public void setReference(String reference) { this.reference = reference;}
         
         public Date getDateShipped() { return dateShipped; }
         public void setDateShipped(Date dateShipped) { this.dateShipped = dateShipped; }

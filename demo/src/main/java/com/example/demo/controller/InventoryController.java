@@ -16,10 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.model.Inventory;
 import com.example.demo.repository.InventoryRepository;
 
-//Database.Table: warehouse.inventory
-
 @RestController
-//@RequestMapping("/inventory")
 public class InventoryController {
 
     @Autowired

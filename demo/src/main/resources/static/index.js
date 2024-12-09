@@ -125,13 +125,103 @@ function loadInventoryData() {
 // Function to load inbound data dynamically
 function loadInboundData() {
     // Placeholder function for loading inbound data
-    document.getElementById('content').innerHTML = '<h3>Inbound List (Coming soon...)</h3>';
+    fetch('/get-all-inbound')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to fetch inbound data');
+        }
+        return response.json();
+    })
+    .then(data => {
+        // Update the content area with inbound data table
+        document.getElementById('content').innerHTML = `
+            <h3>Inbound List</h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Reference</th>
+                        <th>Product SKU</th>
+                        <th>Quantity</th>
+                        <th>Received Date</th>
+                        <th>Location</th>
+                    </tr>
+                </thead>
+                <tbody id="inbound-data"></tbody>
+            </table>
+        `;
+        const inboundTableBody = document.getElementById('inbound-data');
+
+        // Populate the table with inbound data
+        data.forEach(item => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${item.reference}</td>
+                <td>${item.productSku}</td>
+                <td>${item.quantity}</td>
+                <td>${item.dateReceived}</td>
+                <td>${item.location || ''}</td>
+            `;
+            inboundTableBody.appendChild(row);
+        });
+    })
+    .catch(error => {
+        console.error('Error fetching inbound data:', error);
+        document.getElementById('content').innerHTML = `
+            <h3>Error</h3>
+            <p>Failed to load inbound data. Please try again later.</p>
+        `;
+    });
 }
 
 // Function to load outbound data dynamically
 function loadOutboundData() {
     // Placeholder function for loading outbound data
-    document.getElementById('content').innerHTML = '<h3>Outbound List (Coming soon...)</h3>';
+    fetch('/get-all-outbound')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to fetch outbound data');
+        }
+        return response.json();
+    })
+    .then(data => {
+        // Update the content area with outbound data table
+        document.getElementById('content').innerHTML = `
+            <h3>Outbound List</h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Reference</th>
+                        <th>Product SKU</th>
+                        <th>Quantity</th>
+                        <th>Shipped Date</th>
+                        <th>Destination</th>
+                    </tr>
+                </thead>
+                <tbody id="outbound-data"></tbody>
+            </table>
+        `;
+        const outboundTableBody = document.getElementById('outbound-data');
+
+        // Populate the table with outbound data
+        data.forEach(item => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${item.reference}</td>
+                <td>${item.productSku}</td>
+                <td>${item.quantity}</td>
+                <td>${item.dateShipped}</td>
+                <td>${item.destination || ''}</td>
+            `;
+            outboundTableBody.appendChild(row);
+        });
+    })
+    .catch(error => {
+        console.error('Error fetching outbound data:', error);
+        document.getElementById('content').innerHTML = `
+            <h3>Error</h3>
+            <p>Failed to load outbound data. Please try again later.</p>
+        `;
+    });
 }
 
 //-------------------------------------------
